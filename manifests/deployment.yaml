@@ -19,4 +19,4 @@ spec:
       - name: todo
         image: krahul1234/python-todo-app:v22
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
