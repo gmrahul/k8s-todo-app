@@ -9,10 +9,10 @@ metadata:
     name: todo-app
 spec:
   project: default
-  source: argocd/applicationsets
+  source:
     repoURL: https://github.com/gmrahul/k8s-todo-app.git
     targetRevision: main
-    path: 
+    path: argocd/applicationsets
     directory:
       recurse: true
   destination:
