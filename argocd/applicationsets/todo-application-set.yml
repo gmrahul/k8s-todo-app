@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: todo-app
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: test-app
+        url: https://13.126.37.16:6443
+  template:
+    metadata:
+      name: '{{cluster}}-todo'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/gmrahul/k8s-todo-app.git
+        targetRevision: main
+        path: argocd/apps/todo-app
+      destination:
+        server: '{{url}}'
+        namespace: todo
+      syncPolicy:
+        syncOptions:    
+         - CreateNamespace=true 
+        retry:
+          limit: 5
+          backoff:
+           duration: 5s 
+           factor: 2 
+           maxDuration: 3m
